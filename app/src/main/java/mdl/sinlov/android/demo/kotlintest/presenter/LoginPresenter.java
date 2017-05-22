@@ -35,10 +35,9 @@ public class LoginPresenter {
 
     private UserManager mUserManager = new UserManager();
 
-    public void login(String username, String password) {
-        if (username == null || username.length() == 0) return;
-        if (password == null || password.length() < 6) return;
-
-        mUserManager.performLogin(username, password);
+    public String login(String username, String password) {
+        if (username == null || username.length() <= 4) return "";
+        if (password == null || password.length() < 6) return "";
+        return mUserManager.performLogin(username, password);
     }
 }

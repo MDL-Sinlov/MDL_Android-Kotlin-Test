@@ -18,7 +18,7 @@ package mdl.sinlov.android.demo.kotlintest.manager;
  * Created by sinlov on 17/5/22.
  */
 public class UserManager {
-    public void performLogin(String username, String password) {
-
+    public String performLogin(String username, String password) {
+        return ("username = [" + username + "], password = [" + password + "]");
     }
 }

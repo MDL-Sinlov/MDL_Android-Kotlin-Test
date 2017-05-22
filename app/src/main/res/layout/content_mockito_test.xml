@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_mockito_test"
@@ -13,4 +13,25 @@
     tools:context="mdl.sinlov.android.demo.kotlintest.view.MockitoTestActivity"
     tools:showIn="@layout/activity_mockito_test">
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_mockito_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_mockito_base_method"
+            style="@style/Sinlov.Button.Menu.MW"
+            android:text="mockito base method" />
+
+        <Button
+            android:id="@+id/btn_mockito_method_void"
+            style="@style/Sinlov.Button.Menu.MW"
+            android:text="mockito method void" />
+    </LinearLayout>
+</ScrollView>

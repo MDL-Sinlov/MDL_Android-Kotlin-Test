@@ -8,6 +8,9 @@ import android.widget.ScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mdl.sinlov.android.demo.kotlintest.view.Dagger2Activity;
+import mdl.sinlov.android.demo.kotlintest.view.MockitoTestActivity;
+import mdl.sinlov.android.demo.kotlintest.view.RobolectricTestActivity;
 import mdl.sinlov.android.ux.MDLTestActivity;
 
 public class MainActivity extends MDLTestActivity {
@@ -37,10 +40,13 @@ public class MainActivity extends MDLTestActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_main_mockito:
+                skip2Activity(MockitoTestActivity.class);
                 break;
             case R.id.btn_main_dagger_2:
+                skip2Activity(Dagger2Activity.class);
                 break;
             case R.id.btn_main_robolectric:
+                skip2Activity(RobolectricTestActivity.class);
                 break;
         }
     }
