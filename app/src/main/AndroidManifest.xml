@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mdl.sinlov.android.demo.kotlintest">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MockitoTestActivity"
+            android:label="@string/title_activity_mockito_test"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mdl.sinlov.android.demo.kotlintest.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.Dagger2Activity"
+            android:label="@string/title_activity_dagger2"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mdl.sinlov.android.demo.kotlintest.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.RobolectricTestActivity"
+            android:label="@string/title_activity_robolectric_test"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mdl.sinlov.android.demo.kotlintest.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>
