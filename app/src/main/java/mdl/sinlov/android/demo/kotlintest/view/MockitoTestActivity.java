@@ -1,10 +1,13 @@
 package mdl.sinlov.android.demo.kotlintest.view;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.LinkedList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,11 @@ public class MockitoTestActivity extends MDLTestActivity {
     Button btnMockitoMethodVoid;
     @BindView(R.id.tv_mockito_result)
     TextView tvMockitoResult;
+    private LinkedList<String> stringLinkedList;
+
+    public void setStringLinkedList(LinkedList<String> stringLinkedList) {
+        this.stringLinkedList = stringLinkedList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +37,16 @@ public class MockitoTestActivity extends MDLTestActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        initData();
+    }
+
+    public void initData() {
+        stringLinkedList = new LinkedList<>();
+        stringLinkedList.add("one");
     }
 
     @Override
@@ -41,8 +58,10 @@ public class MockitoTestActivity extends MDLTestActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_mockito_base_method:
-                String loginRes = LoginPresenter.getInstance().login("myName", "pwd");
+                LoginPresenter loginPresenter = new LoginPresenter();
+                String loginRes = loginPresenter.login("myName", "password");
                 tvMockitoResult.setText(loginRes);
+                stringLinkedList.add("myName");
                 break;
             case R.id.btn_mockito_method_void:
                 break;
