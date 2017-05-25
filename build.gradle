@@ -1,5 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+apply from: "./gitUtils.gradle"
+
 buildscript {
     repositories {
         jcenter()
@@ -20,4 +22,14 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+task updateModule() {
+    println 'configCommLibModuleFatherPath: ' + configCommLibModuleFatherPath()
+//    configCommLibModuleFatherPath(
+//            configCommLibModuleFatherPath() + "Test",
+//            "https://github.com/MDL-Sinlov/MDL_Android-Device-Mark",
+//            configModuleBranch(),
+//            "README.md")
 }

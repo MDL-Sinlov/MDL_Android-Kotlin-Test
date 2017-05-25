@@ -2,11 +2,14 @@ package mdl.sinlov.android.demo.kotlintest.view;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import java.util.LinkedList;
 
@@ -28,6 +31,9 @@ import java.util.LinkedList;
  * Created by sinlov on 17/5/24.
  */
 public class MockitoTestActivityTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     LinkedList<String> stringLinkedList;

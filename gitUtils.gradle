@@ -1,0 +1,88 @@
+import org.ajoberstar.grgit.*
+
+buildscript {
+    repositories {
+        jcenter()
+//        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.ajoberstar:grgit:1.8.0-rc.1'
+    }
+}
+
+def isSystemWindows() {
+    return System.getProperty("os.name").toLowerCase().contains("windows")
+}
+
+def configModuleBranch() {
+    return hasProperty('MODULE_BRANCH') ? MODULE_BRANCH : "master"
+}
+
+def configCommLibModuleFatherPath() {
+    def separator = isSystemWindows() ? "\\\\" : File.separator
+    if (hasProperty('MODULE_FATHER_PATH')) {
+        def configOfModuleFatherPath = MODULE_FATHER_PATH
+        if (isSystemWindows()) {
+            if (!configOfModuleFatherPath.endsWith("\\\\")) {
+                configOfModuleFatherPath = configOfModuleFatherPath + "\\\\"
+            }
+        } else {
+            if (!configOfModuleFatherPath.endsWith(File.separator)) {
+                configOfModuleFatherPath = configOfModuleFatherPath + File.separator
+            }
+        }
+
+        println "configOfModuleFatherPath: " + configOfModuleFatherPath
+        return configOfModuleFatherPath
+    } else {
+        def rootAbsPath = rootDir.getAbsolutePath()
+        def buffer = new StringBuffer()
+        def arrayOfStrings = rootAbsPath.split(separator)
+        for (int i = 0; i < arrayOfStrings.size() - 1; i++) {
+            buffer.append(arrayOfStrings[i])
+            buffer.append(File.separator)
+        }
+        println "auto configOfModuleFatherPath: " + buffer.toString()
+        return buffer.toString()
+    }
+}
+
+def updateModuleFromGit(moduleDir, gitUrl, branch, updateFileFlag) {
+    println "system inof: " + System.getProperty("os.name")
+    println "want update: " + moduleDir + " , " + gitUrl + " , " + branch
+    def grGit;
+    def exists = false
+    if (updateFileFlag != null) {
+        exists = new File(moduleDir, updateFileFlag).exists()
+    }
+    if (exists) {
+        println "flag file exist do not need clone"
+        grGit = Grgit.open(dir: moduleDir)
+    } else {
+        println "need clone"
+
+        // clone must branch dir must not exist, and will not be delete clear
+        def deleted = new File(moduleDir).deleteDir()
+        if (!deleted) {
+            println 'must let moduleDir module folder not use!'
+            System.exit(1)
+        }
+        grGit = Grgit.clone(dir: moduleDir, uri: gitUrl)
+    }
+    try {
+        grGit.fetch()
+        println "fetch branch: " + branch
+        grGit.checkout(branch: branch)
+        println "pull branch" + branch
+        grGit.pull(branch: branch)
+    } catch (Exception e) {
+        println "update error by " + e.getMessage() + "\nPull default branch"
+        grGit.pull()
+    }
+}
+
+ext {
+    configCommLibModuleFatherPath = this.&configCommLibModuleFatherPath
+    configModuleBranch = this.&configModuleBranch
+    updateModuleFromGit = this.&updateModuleFromGit
+}
